@@ -24,10 +24,14 @@ public class WordFrequencyGame {
 
         list.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
+        return getString(list);
+
+    }
+
+    private String getString(List<Input> list) {
         return list.stream()
                 .map(input -> String.format("%s %s", input.getValue(), input.getWordCount()))
                 .collect(Collectors.joining("\n"));
-
     }
 
     private HashMap<String, Integer> getStringIntegerHashMap(String[] words) {
