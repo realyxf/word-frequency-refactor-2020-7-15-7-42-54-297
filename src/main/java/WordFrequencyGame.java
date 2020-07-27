@@ -12,19 +12,9 @@ public class WordFrequencyGame {
 
     public String getResult(String inputStr) {
 
-
         String[] words = inputStr.split("\\s+");
 
-        //List<Input> inputList = new ArrayList<>();
-
-        HashMap<String, Integer> inputMap = new HashMap<>();
-        for (String word : words) {
-            if (inputMap.containsKey(word)) {
-                inputMap.put(word, inputMap.get(word) + 1);
-            } else {
-                inputMap.put(word, 1);
-            }
-        }
+        HashMap<String, Integer> inputMap = getStringIntegerHashMap(words);
 
         List<Input> list = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : inputMap.entrySet()) {
@@ -38,5 +28,17 @@ public class WordFrequencyGame {
                 .map(input -> String.format("%s %s", input.getValue(), input.getWordCount()))
                 .collect(Collectors.joining("\n"));
 
+    }
+
+    private HashMap<String, Integer> getStringIntegerHashMap(String[] words) {
+        HashMap<String, Integer> inputMap = new HashMap<>();
+        for (String word : words) {
+            if (inputMap.containsKey(word)) {
+                inputMap.put(word, inputMap.get(word) + 1);
+            } else {
+                inputMap.put(word, 1);
+            }
+        }
+        return inputMap;
     }
 }
