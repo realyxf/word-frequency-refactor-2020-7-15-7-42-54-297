@@ -8,32 +8,35 @@ import java.io.CharArrayWriter;
 import java.time.LocalDateTime;
 
 public class WordFrequencyGame {
-    
+
     public String getResult(String inputStr) {
 
         try {
 
             String[] words = inputStr.split("\\s+");
 
-            List<Input> inputList = new ArrayList<>();
-            for (String word : words) {
-                Input input = new Input(word, 1);
-                inputList.add(input);
-            }
+            //List<Input> inputList = new ArrayList<>();
 
-            Map<String, List<Input>> map = getListMap(inputList);
+            HashMap<String, Integer> inputMap = new HashMap<>();
+            for (String word : words) {
+                if (inputMap.containsKey(word)) {
+                    inputMap.put(word, inputMap.get(word) + 1);
+                }
+                else{
+                    inputMap.put(word, 1);
+                }
+            }
 
             List<Input> list = new ArrayList<>();
-            for (Map.Entry<String, List<Input>> entry : map.entrySet()) {
-                Input input = new Input(entry.getKey(), entry.getValue().size());
+            for (Map.Entry<String, Integer> entry : inputMap.entrySet()) {
+                Input input = new Input(entry.getKey(), entry.getValue());
                 list.add(input);
             }
-            inputList = list;
 
-            inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+            list.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
             StringJoiner joiner = new StringJoiner("\n");
-            for (Input w : inputList) {
+            for (Input w : list) {
                 String s = w.getValue() + " " + w.getWordCount();
                 joiner.add(s);
             }
